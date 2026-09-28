@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.venv/
+venv/
+.env
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Outputs
+example_output/
+
+# Data, weights and run outputs (download / generate locally)
+/dataset_train/
+/dataset_test/
+/checkpoints/
+/checkpoints_sam/
+/release/
+/logs/
+/samples/
+/eval_outputs/
+/inference_output_images/
+*.pth
+*.pt
+*.npz

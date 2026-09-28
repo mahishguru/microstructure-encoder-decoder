@@ -1,0 +1,175 @@
+{
+  "paths": {
+    "checkpoints_dir": "checkpoints",
+    "encoder_ckpt": "checkpoints/encoder_best.pth",
+    "data_dir": "dataset_train",
+    "test_dir": "dataset_test",
+    "inference_output_dir": "inference_output_images",
+    "logs_dir": "logs",
+    "epoch_samples_dir": "logs/epoch_samples"
+  },
+  "models": {
+    "encoder": {
+      "vit_model_name": "ViT-H-14",
+      "vit_pretrained": "laion2b_s32b_b79k",
+      "vit_dim": 1280,
+      "target_dim": 512,
+      "attention_pooler_heads": 8,
+      "attention_pooler_num_queries": 4
+    },
+    "sdxl": {
+      "model_name": "stabilityai/stable-diffusion-xl-base-1.0",
+      "vae_subfolder": "vae"
+    },
+    "fmdit": {
+      "sd35_model_id": "stabilityai/stable-diffusion-3.5-medium",
+      "sd35_vae_subfolder": "vae",
+      "sd35_joint_attention_dim": 4096,
+      "sd35_pooled_dim": 2048,
+      "sd35_vae_channels": 16,
+      "sd35_vae_downsample_factor": 8,
+      "adapter_inner_dim": 512,
+      "adapter_num_tokens": 16,
+      "decoder_lora_rank": 16,
+      "decoder_lora_alpha": 16,
+      "adapter_depth": 5,
+      "adapter_num_heads": 8
+    },
+    "vitdit": {
+      "dit_pretrained": "facebook/DiT-XL-2-256",
+      "sd_vae_model_id": "stabilityai/sd-vae-ft-mse",
+      "dit_hidden_size": 1152,
+      "dit_depth": 28,
+      "dit_num_heads": 16,
+      "dit_patch_size": 2,
+      "dit_class_emb_dim": 1152,
+      "sd_vae_channels": 4,
+      "sd_vae_downsample_factor": 8
+    }
+  },
+  "training": {
+    "shared": {
+      "num_epochs": 100,
+      "num_workers": 32,
+      "max_images": null,
+      "warmup_steps": 200,
+      "max_grad_norm": 1.0,
+      "val_split": 0.1
+    },
+    "sdxl": {
+      "batch_size": 144,
+      "compressor_lr": 5e-06,
+      "accumulation_steps": 2,
+      "p_drop": 0.1,
+      "num_inference_steps": 50,
+      "use_amp": true,
+      "loss_weights": {
+        "lambda_diff_start": 1.0,
+        "lambda_diff_end": 1.0,
+        "lambda_recon_start": 1.0,
+        "lambda_recon_end": 1.0,
+        "lambda_vicreg_start": 0.05,
+        "lambda_vicreg_end": 0.1,
+        "lambda_contrastive_start": 0.0,
+        "lambda_contrastive_end": 0.0,
+        "lambda_lab_start": 0.0,
+        "lambda_lab_end": 0.1,
+        "lambda_freq_start": 0.0,
+        "lambda_freq_end": 0.1,
+        "warmup_epochs": 10
+      },
+      "contrastive": {
+        "temperature": 0.03,
+        "pixel_noise_scale": 0.03
+      },
+      "vicreg": {
+        "var_weight": 5.0,
+        "cov_weight": 1.0,
+        "var_target": 1.0
+      },
+      "pixel_loss": {
+        "alpha_t_threshold": 0.3
+      },
+      "resume_from": null
+    },
+    "fmdit": {
+      "batch_size": 24,
+      "lr": 0.0001,
+      "weight_decay": 0.01,
+      "accumulation_steps": 6,
+      "use_amp": true,
+      "flow_shift": 3.0,
+      "num_train_timesteps": 1000,
+      "num_inference_steps": 50,
+      "num_inference_steps_sample": 20,
+      "pixel_max_samples": 4,
+      "pixel_t_threshold": 0.5,
+      "orient": {
+        "lambda_orient": 0.2,
+        "warmup_epochs": 8,
+        "ramp_epochs": 12,
+        "pix_weight": 0.8,
+        "pool_weight": 0.2,
+        "pool_size": 16,
+        "eps": 0.0001
+      },
+      "orient_v2": {
+        "lambda_orient": 0.5,
+        "warmup_epochs": 2,
+        "ramp_epochs": 3,
+        "orient_weight_power": 2.0,
+        "odf_weight": 0.2,
+        "misori_weight": 0.1,
+        "pf_weight": 0.25,
+        "scatter_weight": 0.15,
+        "n_refs": 128,
+        "kappa": 150.0,
+        "n_pix": 4096,
+        "odf_mode": "mmd",
+        "sinkhorn_eps": 0.05,
+        "sinkhorn_iters": 30,
+        "pf_grid": 512,
+        "pf_kappa": 256.0,
+        "pf_prismatic": true,
+        "lambda_latstat": 0.05,
+        "eps": 0.0001,
+        "orient_t_threshold": 0.35,
+        "pf_sharp_weight": 0.2,
+        "pix_weight": 0.1,
+        "mmd_kappa": 64.0,
+        "mmd_n": 512
+      }
+    },
+    "vitdit": {
+      "batch_size": 144,
+      "lr": 0.0001,
+      "weight_decay": 0.01,
+      "accumulation_steps": 1,
+      "use_amp": true,
+      "ddpm_num_train_timesteps": 1000,
+      "ddpm_beta_start": 0.0001,
+      "ddpm_beta_end": 0.02,
+      "num_inference_steps": 250,
+      "num_inference_steps_sample": 50,
+      "pixel_max_samples": 4,
+      "pixel_t_threshold": 0.5,
+      "orient": {
+        "lambda_orient": 0.05,
+        "warmup_epochs": 6,
+        "ramp_epochs": 10,
+        "pix_weight": 0.8,
+        "pool_weight": 0.2,
+        "pool_size": 16,
+        "eps": 0.0001
+      }
+    }
+  },
+  "checkpointing": {
+    "sdxl_save_every_epoch": true,
+    "sdxl_resume_from": "checkpoints/vitsdxl/checkpoint_epoch_010.pth",
+    "fmdit_save_every_epoch": 5,
+    "fmdit_resume_from": null,
+    "vitdit_save_every_epoch": 5,
+    "vitdit_resume_from": null
+  }
+}
