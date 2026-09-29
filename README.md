@@ -4,6 +4,8 @@ A ViT-H/14 encoder and a flow-matching diffusion-transformer (FM-DiT) decoder th
 
 🤗 **Weights:** [huggingface.co/mahishguru/microstructure-encoder-decoder](https://huggingface.co/mahishguru/microstructure-encoder-decoder)
 
+📦 **Training data:** 101,000 synthetic RVEs (codec-encoded PNG orientation maps, 15 alloy classes), [Zenodo record 23036836](https://zenodo.org/records/23036836) (DOI [10.5281/zenodo.23036836](https://doi.org/10.5281/zenodo.23036836), CC BY 4.0; files available on request through Zenodo)
+
 **Companion repositories:**
 - [orientation-codec](https://github.com/mahishguru/orientation-codec) converts between RGB images and HCP orientation fields.
 - [meridian](https://github.com/mahishguru/meridian) optimises in this latent space against a DAMASK oracle.

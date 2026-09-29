@@ -17,6 +17,8 @@ To obtain an RVE, resize the decoded image to 300 × 300 with nearest-neighbour 
 
 ## Data
 
+The training dataset is published as [Zenodo record 23036836](https://zenodo.org/records/23036836) (DOI [10.5281/zenodo.23036836](https://doi.org/10.5281/zenodo.23036836), CC BY 4.0; files available on request through Zenodo). Extract it and split it with `scripts/split_dataset.py` as below.
+
 Training images are 8-bit orientation-codec PNGs of 300 × 300 RVEs, named `<class>_orientation_<id>.png` with one sub-folder per alloy class. They are produced with `orientation-codec batch-global` and the class means in [`microstructure_ed/assets/class_means.json`](../microstructure_ed/assets/class_means.json). The papers use 101,000 RVEs, augmented from measured ODF and grain-statistics conditions of extruded Mg alloys, split 90/10:
 
 ```bash
