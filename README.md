@@ -61,6 +61,21 @@ scripts/compute_testset_metrics.sh
 
 See [docs/usage.md](docs/usage.md) for the full recipe.
 
+## Citation
+
+If you use this code, please cite:
+
+```bibtex
+@article{guru2026copilot,
+  title   = {{Co-PiLOT}: Constrained Physics-Informed Latent Optimization for Target-Driven Inverse Design},
+  author  = {Guru, Mahish K. and Nagar, Mayank and Vyas, Ayush and Bohlen, Jan and Aydin, Roland and Ben Khalifa, Noomane},
+  journal = {arXiv preprint arXiv:2609.37875},
+  year    = {2026},
+  doi     = {10.48550/arXiv.2609.37875},
+  url     = {https://arxiv.org/abs/2609.37875}
+}
+```
+
 ## License
 
 The code is released under the MIT license ([LICENSE](LICENSE)). The released weights inherit the licences of their base models; ViT-DiT is **non-commercial**. See the [model card](https://huggingface.co/mahishguru/microstructure-encoder-decoder).
